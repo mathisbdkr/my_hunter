@@ -5,14 +5,33 @@
 ## Makefile
 ##
 
-SRC	=	src/*.c
+SRC	=	src/anim.c	\
+	src/bird.c	\
+	src/display_all.c	\
+	src/game_over.c	\
+	src/init_struct.c	\
+	src/main_menu_button.c	\
+	src/main_menu.c	\
+	src/main.c	\
+	src/menu_game_over.c	\
+	src/my_putchar.c	\
+	src/my_putstr.c	\
+	src/my_strlen.c	\
+	src/set_sprite.c	\
+	src/shout.c	\
+	src/sprite_game_over.c	\
+	src/sprite_main_menu.c	\
+	src/time.c	\
+	src/my_getnbr.c
 
-OBJ	=	$(SRC:.c=.o)
+OBJ	=	$(SRC/.c=.o)
 
 NAME	=	my_hunter
 
+LIB	=	-lcsfml-system -lcsfml-graphics -lcsfml-audio -lcsfml-window -I include
+
 $(NAME):
-	gcc $(SRC) -lcsfml-system -lcsfml-graphics -lcsfml-audio -lcsfml-window -I include -o $(NAME)
+	gcc $(SRC) $(LIB) -o $(NAME)
 
 all:	$(NAME) clean
 

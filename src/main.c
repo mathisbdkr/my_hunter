@@ -7,52 +7,62 @@
 
 #include "../include/hunter.h"
 
+void help(void)
+{
+    my_putstr("shoot the TIE fighter and don't let them go\n");
+    my_putstr("if you miss you loose a life\n");
+    my_putstr("you have 3 life and the goal\n");
+    my_putstr("is to DESTROY THE EMPIRE\n");
+    my_putstr("\n");
+    my_putstr("exit int game with escape key \n");
+    my_putstr("enjoy!!!\n");
+}
+
 sfIntRect get_rect(int top, int left, int width, int height)
 {
-	sfIntRect rect;
-	rect.top = top;
-	rect.left = left;
-	rect.width = width;
-	rect.height = height;
-	return (rect);
+    sfIntRect rect;
+    rect.top = top;
+    rect.left = left;
+    rect.width = width;
+    rect.height = height;
+    return (rect);
 }
 
 int run_window(struct hunter_t *hunter)
 {
-	sfEvent event;
-	sfRenderWindow_drawSprite(hunter->window, hunter->background, NULL);
-	while (sfRenderWindow_isOpen(hunter->window)) {
-		display_bird(hunter, event);
-		if (hunter->vie == 0) {
-			sfRenderWindow_close(hunter->window);
-			return 1;
-		}
-	}
+    sfEvent event;
+    sfMusic_stop(hunter->menu_music);
+    sfMusic_play(hunter->game_music);
+    sfRenderWindow_drawSprite(hunter->window, hunter->background, NULL);
+    while (sfRenderWindow_isOpen(hunter->window)) {
+        display_bird(hunter, event);
+        if (hunter->vie == 0) {
+            sfMusic_stop(hunter->game_music);
+            sfMusic_play(hunter->menu_music);
+            return 2;
+        }
+    }
+    return 42;
 }
 
 int main(int ac, char **av)
 {
-	int redirect = 0;
-	struct hunter_t *hunter = malloc(sizeof(struct hunter_t));
-	hunter->score = 0;
-	hunter->vie = 1;
-	if (ac == 2 && (av[1][0] == '-' || av[1][1] == 'h')) {
-		my_putstr("shoot the TIE fighter \n");
-		my_putstr("exit with escape key \n");
-		my_putstr("enjoy\n");
-		return (0);
-	}
-	sfVideoMode mode = { 1366, 716, 32 };
-	sfRenderWindow* window = sfRenderWindow_create(mode, "my hunter",
-		sfTitlebar | sfClose, NULL);
-	sfRenderWindow_setFramerateLimit(window, 60);
-	sfRenderWindow_setMouseCursorVisible(window, sfFalse);
-	set_background(hunter);
-	hunter->window = window;
-	if (redirect == 0)
-		redirect = run_window(hunter);
-	if (redirect == 1)
-		redirect = window_end(hunter);
-	return (0);
+    int redirect = 0;
+    struct hunter_t *hunter = malloc(sizeof(struct hunter_t));
+    if (ac == 2 && (av[1][0] == '-' || av[1][1] == 'h')) {
+        help();
+        return (0);
+    }
+    init_struct(hunter);
+    init_struct2(hunter);
+    sfMusic_play(hunter->menu_music);
+    while (redirect != 42) {
+        if (redirect == 0)
+            redirect = main_menu(hunter);
+        if (redirect == 1)
+            redirect = run_window(hunter);
+        sfRenderWindow_setMouseCursorVisible(hunter->window, sfTrue);
+        if (redirect == 2)
+            redirect = window_end(hunter);
+    }
 }
-
