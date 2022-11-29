@@ -15,27 +15,38 @@ sfVector2f position_tie(float x, float y)
     return (vector);
 }
 
+void anim_exlosion_part_two(struct hunter_t *hunter, sfVector2f tie_pos)
+{
+    sfVector2f scale_explosion = sfSprite_getScale(hunter->explo);
+    scale_explosion.x *= 1.01;scale_explosion.y *= 1.01;
+    sfSprite_setScale(hunter->explo, scale_explosion);
+    sfRenderWindow_drawSprite(hunter->window, hunter->explo, NULL);
+    sfRenderWindow_drawSprite(hunter->window, hunter->coeur, NULL);
+    sfSprite_setTextureRect(hunter->coeur, anim_coeur(hunter));
+    txt_score(hunter);
+    sfRenderWindow_drawText(hunter->window, hunter->txt_score, NULL);
+    sfRenderWindow_display(hunter->window);
+}
+
 void anim_explosion(struct hunter_t *hunter, sfVector2f tie_pos)
 {
-    int i = 0;
     set_explosion(hunter);
-    while (i < 20) {
+    for (int i = 0; i < 20; i++) {
         sfRenderWindow_clear(hunter->window, sfBlack);
         sfRenderWindow_drawSprite(hunter->window, hunter->background, NULL);
+        hunter->star->pos_star.x += 0.4;
+        sfSprite_setPosition(hunter->star->sprite_star, hunter->star->pos_star);
+        sfRenderWindow_drawSprite(hunter->window,
+        hunter->star->sprite_star, NULL);
+        hunter->star->pos_star_two.x -= 0.4;
+        sfSprite_setPosition(hunter->star->sprite_star_two,
+        hunter->star->pos_star_two);
+        sfRenderWindow_drawSprite(hunter->window,
+        hunter->star->sprite_star_two, NULL);
         sfSprite_setTextureRect(hunter->explo, set_anim_explosion(i, hunter));
         sfSprite_setPosition(hunter->explo,
         position_tie(tie_pos.x, tie_pos.y));
-        sfVector2f scale_explosion = sfSprite_getScale(hunter->explo);
-        scale_explosion.x *= 1.01;
-        scale_explosion.y *= 1.01;
-        sfSprite_setScale(hunter->explo, scale_explosion);
-        sfRenderWindow_drawSprite(hunter->window, hunter->explo, NULL);
-        sfRenderWindow_drawSprite(hunter->window, hunter->coeur, NULL);
-        sfSprite_setTextureRect(hunter->coeur, anim_coeur(hunter));
-        txt_score(hunter);
-        sfRenderWindow_drawText(hunter->window, hunter->txt_score, NULL);
-        sfRenderWindow_display(hunter->window);
-        i++;
+        anim_exlosion_part_two(hunter, tie_pos);
     }
 }
 
@@ -45,8 +56,7 @@ int shout(sfVector2f mouse_pos, struct hunter_t *hunter, sfEvent event)
         sfRenderWindow_close(hunter->window);
     if (event.type == sfEvtClosed)
         sfRenderWindow_close(hunter->window);
-    sfRenderWindow *window = hunter->window;
-    sfRenderWindow_pollEvent(window, &event);
+    sfRenderWindow_pollEvent(hunter->window, &event);
     if (event.type == sfEvtMouseButtonPressed) {
         sfMusic_stop(hunter->fire_music);
         sfMusic_play(hunter->fire_music);

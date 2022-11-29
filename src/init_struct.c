@@ -24,7 +24,7 @@ void init_struct(struct hunter_t *hunter)
     hunter->fire_music = sfMusic_createFromFile ("song/fire.ogg");
 }
 
-void init_struct2(struct hunter_t *hunter)
+void init_struct2(struct hunter_t *hunter, struct star_t *star)
 {
     set_background(hunter);
     sprite_bird(hunter);
@@ -40,4 +40,5 @@ void init_struct2(struct hunter_t *hunter)
     sfText_setString(txt_msg_best_score, "best score : ");
     sfText_setColor(txt_msg_best_score, sfYellow);
     hunter->txt_msg_best_score = txt_msg_best_score;
+    hunter->star = star;
 }

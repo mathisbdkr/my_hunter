@@ -88,7 +88,7 @@ int window_end(struct hunter_t *hunter)
             return 42;
         }
         if (menu_game_over(get_position(mouse.x, mouse.y), hunter) == 1) {
-            return 0;
+            return 1;
         }
         disp_window_end(hunter);
     }

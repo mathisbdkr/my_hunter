@@ -22,7 +22,9 @@ SRC	=	src/anim.c	\
 	src/sprite_game_over.c	\
 	src/sprite_main_menu.c	\
 	src/time.c	\
-	src/my_getnbr.c
+	src/my_getnbr.c	\
+	src/init_star.c	\
+	src/display_game.c	\
 
 OBJ	=	$(SRC/.c=.o)
 

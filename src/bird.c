@@ -31,7 +31,7 @@ void txt_score(struct hunter_t *hunter)
     hunter->txt_score = nbr_score;
 }
 
-void bird_gd(struct hunter_t *hunter, sfEvent event)
+void bird_gd(struct hunter_t *hunter, sfEvent event, struct star_t *star)
 {
     sfSprite *coeur = set_coeur(hunter); int i = 0;
     hunter->pos_bird.y = rand() % 600;
@@ -42,7 +42,7 @@ void bird_gd(struct hunter_t *hunter, sfEvent event)
             return;
         }
         hunter->speed = timing(hunter, 0);
-        i += 1;
+        i = 1;
         sfSprite_setTextureRect(hunter->bird, anim_gd(i, hunter));
         sfSprite_setTextureRect(coeur, anim_coeur(hunter));
         if (i >= 30)
@@ -55,7 +55,7 @@ void bird_gd(struct hunter_t *hunter, sfEvent event)
     hunter->vie -= 1;
 }
 
-void bird_dg(struct hunter_t *hunter, sfEvent event)
+void bird_dg(struct hunter_t *hunter, sfEvent event, struct star_t *star)
 {
     sfSprite *coeur = set_coeur(hunter); int i = 0;
     hunter->pos_bird.y = rand() % 600;
@@ -79,18 +79,22 @@ void bird_dg(struct hunter_t *hunter, sfEvent event)
     hunter->vie -= 1;
 }
 
-int display_bird(struct hunter_t *hunter, sfEvent event)
+int display_bird(struct hunter_t *hunter, sfEvent event, struct star_t *star)
 {
     int sance = rand() % 100;
     hunter->speed = timing(hunter, 1);
+    if (hunter->star->pos_star.x >= 1366)
+        hunter->star->pos_star.x = -423;
+    if (hunter->star->pos_star_two.x <= -706)
+        hunter->star->pos_star_two.x = 1400;
     sfRenderWindow_setMouseCursorVisible(hunter->window, sfFalse);
     if (hunter->vie == 0) {
         return 1;
     }
     if (sance < 50 && sfRenderWindow_isOpen(hunter->window)) {
-        bird_gd(hunter, event);
+        bird_gd(hunter, event, star);
     }
     if (sance >= 50 && sfRenderWindow_isOpen(hunter->window)) {
-        bird_dg(hunter, event);
+        bird_dg(hunter, event, star);
     }
 }

@@ -31,26 +31,6 @@ char* get_score_char(struct hunter_t *hunter)
     }
 }
 
-int display_game(struct hunter_t *hunter, sfEvent event, sfVector2f pos)
-{
-    sfRenderWindow_clear(hunter->window, sfBlack);
-    sfVector2i mouse = sfMouse_getPositionRenderWindow(hunter->window);
-    if (sfRenderWindow_pollEvent(hunter->window, &event)) {
-        if (shout(get_position(mouse.x, mouse.y), hunter, event) == 1)
-            return 1;
-    }
-    sfRenderWindow_drawSprite(hunter->window, hunter->background, NULL);
-    sfSprite_setPosition(hunter->bird, pos);
-    sfRenderWindow_drawSprite(hunter->window, hunter->coeur, NULL);
-    sfRenderWindow_drawSprite(hunter->window, hunter->bird, NULL);
-    sfSprite_setPosition(hunter->scope, get_position(mouse.x, mouse.y));
-    sfRenderWindow_drawSprite(hunter->window, hunter->scope, NULL);
-    txt_score(hunter);
-    sfRenderWindow_drawText(hunter->window, hunter->txt_score, NULL);
-    sfRenderWindow_display(hunter->window);
-    return 0;
-}
-
 int ondulation(struct hunter_t *hunter)
 {
     if (hunter->score > 9) {

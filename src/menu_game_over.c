@@ -34,6 +34,8 @@ int menu_game_over(sfVector2f mouse_pos, struct hunter_t *hunter)
         return 42;
     }
     if (event.type == sfEvtMouseButtonPressed) {
+        hunter->star->pos_star = get_position(-623,60);
+        hunter->star->pos_star_two = get_position(2072,200);
         if (action_over(mouse_pos, hunter) == 42)
             return 42;
         if (action_over(mouse_pos, hunter) == 1) {
