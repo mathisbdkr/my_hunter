@@ -22,3 +22,11 @@ sfSprite *set_play(struct hunter_t *hunter)
     sfTexture_createFromFile("img/play.png", NULL), 0);
     hunter->play = play;
 }
+
+sfSprite *set_cockpit(struct hunter_t *hunter)
+{
+    sfSprite *cockpit = sfSprite_create();
+    sfSprite_setTexture(cockpit,
+    sfTexture_createFromFile("img/cockpit.png", NULL), 0);
+    hunter->star->cockpit = cockpit;
+}

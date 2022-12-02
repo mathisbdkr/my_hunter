@@ -15,8 +15,6 @@ SRC	=	src/anim.c	\
 	src/main.c	\
 	src/menu_game_over.c	\
 	src/my_putchar.c	\
-	src/my_putstr.c	\
-	src/my_strlen.c	\
 	src/set_sprite.c	\
 	src/shout.c	\
 	src/sprite_game_over.c	\
@@ -25,12 +23,13 @@ SRC	=	src/anim.c	\
 	src/my_getnbr.c	\
 	src/init_star.c	\
 	src/display_game.c	\
+	src/vader.c	\
 
 OBJ	=	$(SRC/.c=.o)
 
 NAME	=	my_hunter
 
-LIB	=	-lcsfml-system -lcsfml-graphics -lcsfml-audio -lcsfml-window -I include
+LIB	=	-lcsfml-system -lcsfml-graphics -lcsfml-audio -lcsfml-window
 
 $(NAME):
 	gcc $(SRC) $(LIB) -o $(NAME)

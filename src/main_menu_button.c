@@ -9,15 +9,15 @@
 
 int action(sfVector2f mouse_pos, struct hunter_t *hunter)
 {
-    if (mouse_pos.x <= hunter->pos_play.x + 198 &&
+    if (mouse_pos.x <= hunter->pos_play.x + 56 &&
     mouse_pos.x >= hunter->pos_play.x &&
-    mouse_pos.y <= hunter->pos_play.y + 92 &&
+    mouse_pos.y <= hunter->pos_play.y + 66 &&
     mouse_pos.y >= hunter->pos_play.y) {
         return 1;
     }
-    if (mouse_pos.x <= hunter->pos_quit.x + 198 &&
+    if (mouse_pos.x <= hunter->pos_quit.x + 55 &&
     mouse_pos.x >= hunter->pos_quit.x &&
-    mouse_pos.y <= hunter->pos_quit.y + 92 &&
+    mouse_pos.y <= hunter->pos_quit.y + 70 &&
     mouse_pos.y >= hunter->pos_quit.y) {
         return 42;
     }

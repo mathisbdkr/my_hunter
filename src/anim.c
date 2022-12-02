@@ -7,7 +7,7 @@
 
 #include "../include/hunter.h"
 
-sfVector2f get_position(int x, int y)
+sfVector2f get_position(float x, float y)
 {
     sfVector2f vector;
     vector.x = x;
@@ -27,7 +27,6 @@ sfIntRect anim_gd(int i, struct hunter_t *hunter)
     if (i >= 20 && i <= 31) {
         rect = get_rect(0, 402 / 3 * 2, (402 / 3) * -1, 110);
     }
-    hunter-> haut = 110;
     return rect;
 }
 
@@ -43,7 +42,6 @@ sfIntRect anim_dg(int i, struct hunter_t *hunter)
     if (i >= 20 && i <= 31) {
         rect = get_rect(0, 402 / 3 * 2, 402 / 3, 110);
     }
-    hunter-> haut = 110;
     return rect;
 }
 

@@ -7,6 +7,14 @@
 
 #include "../include/hunter.h"
 
+sfSprite *set_back_game(struct hunter_t *hunter)
+{
+    sfSprite *back_game = sfSprite_create();
+    sfSprite_setTexture(back_game,
+    sfTexture_createFromFile("img/back_game.png", NULL), 0);
+    hunter->back_game = back_game;
+}
+
 int display_game_two(struct hunter_t *hunter, sfEvent event, sfVector2f pos)
 {
     sfVector2i mouse = sfMouse_getPositionRenderWindow(hunter->window);
@@ -33,7 +41,7 @@ int display_game(struct hunter_t *hunter, sfEvent event, sfVector2f pos)
         if (shout(get_position(mouse.x, mouse.y), hunter, event) == 1)
             return 1;
     }
-    sfRenderWindow_drawSprite(hunter->window, hunter->background, NULL);
+    sfRenderWindow_drawSprite(hunter->window, hunter->back_game, NULL);
     sfRenderWindow_drawSprite(hunter->window, hunter->star->sprite_star, NULL);
     sfRenderWindow_drawSprite(hunter->window,
     hunter->star->sprite_star_two, NULL);

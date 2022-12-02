@@ -7,6 +7,11 @@
 
 #include "../include/hunter.h"
 
+void volume(struct hunter_t *hunter)
+{
+    sfMusic_setVolume(hunter->vader_music, 70);
+}
+
 void init_struct(struct hunter_t *hunter)
 {
     sfVideoMode mode = { 1366, 716, 32 };
@@ -22,11 +27,14 @@ void init_struct(struct hunter_t *hunter)
     hunter->explosion_music = sfMusic_createFromFile ("song/explosion.ogg");
     hunter->menu_music = sfMusic_createFromFile ("song/menu.ogg");
     hunter->fire_music = sfMusic_createFromFile ("song/fire.ogg");
+    hunter->vader_music = sfMusic_createFromFile ("song/you_lose.wav");
+    volume(hunter);
 }
 
 void init_struct2(struct hunter_t *hunter, struct star_t *star)
 {
     set_background(hunter);
+    set_back_game(hunter);
     sprite_bird(hunter);
     sprite_scope1(hunter);
     int fx = open("best/bestscore.txt", O_RDONLY);
@@ -41,4 +49,5 @@ void init_struct2(struct hunter_t *hunter, struct star_t *star)
     sfText_setColor(txt_msg_best_score, sfYellow);
     hunter->txt_msg_best_score = txt_msg_best_score;
     hunter->star = star;
+    set_vader(hunter);
 }

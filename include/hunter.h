@@ -10,30 +10,16 @@
 
     #include <SFML/Graphics.h>
     #include <SFML/Audio.h>
-    #include <SFML/Graphics/Color.h>
-    #include <SFML/Graphics/Rect.h>
-    #include <SFML/System.h>
-    #include <SFML/System/Clock.h>
     #include <stdio.h>
     #include <stdlib.h>
     #include <unistd.h>
-    #include <SFML/Audio/Export.h>
-    #include <SFML/Audio/SoundStatus.h>
-    #include <SFML/Audio/Types.h>
-    #include <SFML/System/InputStream.h>
-    #include <SFML/System/Time.h>
-    #include <SFML/System/Vector3.h>
-    #include <stddef.h>
-    #include <time.h>
     #include <fcntl.h>
-    #include <math.h>
 
 struct hunter_t {
     int score;
     int vie;
     sfTime time;
     int speed;
-    int haut;
     int ondulation_check;
     int pos_bird_start;
     char score_char[1];
@@ -41,28 +27,27 @@ struct hunter_t {
     sfRenderWindow *window;
     sfSprite *bird;
     sfSprite *scope;
-    sfSprite *background;
-    sfSprite *game_over;
-    sfSprite *retry;
-    sfSprite *quit;
     sfSprite *game_name;
     sfSprite *play;
     sfSprite *explo;
     sfSprite *coeur;
+    sfSprite *back_game;
     sfVector2f pos_bird;
     sfVector2f pos_retry;
     sfVector2f pos_quit;
     sfVector2f pos_play;
-    sfMusic *menu_music;
     sfMusic *game_music;
     sfMusic *explosion_music;
     sfMusic *fire_music;
+    sfMusic *menu_music;
+    sfMusic *vader_music;
     sfText *txt_bestscore;
     sfText *txt_msg_best_score;
     int bestscore;
     char bestscore_char[2];
     sfClock *cloky;
     struct star_t *star;
+    sfSprite *background;
 };
 
 struct star_t {
@@ -73,11 +58,18 @@ struct star_t {
     int pos_star_two_start;
     sfSprite *sprite_star_two;
     sfVector2f pos_star_two;
+    sfSprite *cockpit;
+    sfSprite *game_over;
+    sfSprite *retry;
+    sfSprite *quit;
+    sfSprite *quit_end;
+    sfSprite *light;
+    sfSprite *vader_sprite;
 };
 
 void my_putstr(char const *str);
 sfIntRect get_rect(int top, int left, int width, int height);
-sfVector2f get_position(int x, int y);
+sfVector2f get_position(float x, float y);
 sfIntRect anim_dg(int i, struct hunter_t *hunter);
 sfIntRect anim_gd(int i, struct hunter_t *hunter);
 sfSprite *sprite_bird(struct hunter_t *hunter);
@@ -113,5 +105,10 @@ void txt_score_fin(struct hunter_t *hunter);
 int my_getnbr(char* nb);
 void txt_bestscore_fin(struct hunter_t *hunter);
 void init_star(struct star_t *star);
+sfSprite *set_back_game(struct hunter_t *hunter);
+sfSprite *set_cockpit(struct hunter_t *hunter);
+int vader(struct hunter_t *hunter);
+sfSprite *set_vader(struct hunter_t *hunter);
+sfSprite *set_quit_end(struct hunter_t *hunter);
 
 #endif /* !HUNTER_H_ */

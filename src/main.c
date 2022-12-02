@@ -73,6 +73,6 @@ int main(int ac, char **av)
             redirect = run_window(hunter);
         sfRenderWindow_setMouseCursorVisible(hunter->window, sfTrue);
         if (redirect == 2)
-            redirect = window_end(hunter);
+            redirect = vader(hunter);
     }
 }

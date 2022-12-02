@@ -53,11 +53,11 @@ void disp_window_end(struct hunter_t *hunter)
 {
     sfRenderWindow_clear(hunter->window, sfBlack);
     sfRenderWindow_drawSprite(hunter->window, hunter->background, NULL);
-    sfRenderWindow_drawSprite(hunter->window, hunter->game_over, NULL);
-    sfSprite_setPosition(hunter->retry, hunter->pos_retry);
-    sfRenderWindow_drawSprite(hunter->window, hunter->retry, NULL);
-    sfSprite_setPosition(hunter->quit, hunter->pos_quit);
-    sfRenderWindow_drawSprite(hunter->window, hunter->quit, NULL);
+    sfRenderWindow_drawSprite(hunter->window, hunter->star->game_over, NULL);
+    sfSprite_setPosition(hunter->star->retry, hunter->pos_retry);
+    sfRenderWindow_drawSprite(hunter->window, hunter->star->retry, NULL);
+    sfSprite_setPosition(hunter->star->quit_end, hunter->pos_quit);
+    sfRenderWindow_drawSprite(hunter->window, hunter->star->quit_end, NULL);
     txt_bestscore_fin(hunter);
     sfRenderWindow_drawText(hunter->window, hunter->txt_bestscore, NULL);
     sfRenderWindow_drawText(hunter->window, hunter->txt_msg_best_score, NULL);

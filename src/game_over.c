@@ -78,7 +78,8 @@ void txt_bestscore_fin(struct hunter_t *hunter)
 
 int window_end(struct hunter_t *hunter)
 {
-    set_game_over(hunter);set_retry(hunter);set_quit(hunter);
+    sfMusic_play(hunter->menu_music);
+    set_game_over(hunter);set_retry(hunter);set_quit_end(hunter);
     hunter->pos_retry = get_position(450, 450);
     hunter->pos_quit = get_position(750, 450);
     sfEvent event;

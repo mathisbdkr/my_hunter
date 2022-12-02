@@ -37,12 +37,12 @@ void bird_gd(struct hunter_t *hunter, sfEvent event, struct star_t *star)
     hunter->pos_bird.y = rand() % 600;
     hunter->pos_bird.x = -134;
     hunter->pos_bird_start = hunter->pos_bird.y;
-    while (hunter->pos_bird.x < 1366 && sfRenderWindow_isOpen(hunter->window)) {
+    while (hunter->pos_bird.x < 1479 && sfRenderWindow_isOpen(hunter->window)) {
         if (ondulation(hunter) == 1) {
             return;
         }
         hunter->speed = timing(hunter, 0);
-        i = 1;
+        i += 1;
         sfSprite_setTextureRect(hunter->bird, anim_gd(i, hunter));
         sfSprite_setTextureRect(coeur, anim_coeur(hunter));
         if (i >= 30)
@@ -61,7 +61,7 @@ void bird_dg(struct hunter_t *hunter, sfEvent event, struct star_t *star)
     hunter->pos_bird.y = rand() % 600;
     hunter->pos_bird.x = 1364;
     hunter->pos_bird_start = hunter->pos_bird.y;
-    while (hunter->pos_bird.x > 0 && sfRenderWindow_isOpen(hunter->window)) {
+    while (hunter->pos_bird.x > -113 && sfRenderWindow_isOpen(hunter->window)) {
         if (ondulation(hunter) == 1) {
             return;
         }

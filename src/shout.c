@@ -33,7 +33,7 @@ void anim_explosion(struct hunter_t *hunter, sfVector2f tie_pos)
     set_explosion(hunter);
     for (int i = 0; i < 20; i++) {
         sfRenderWindow_clear(hunter->window, sfBlack);
-        sfRenderWindow_drawSprite(hunter->window, hunter->background, NULL);
+        sfRenderWindow_drawSprite(hunter->window, hunter->back_game, NULL);
         hunter->star->pos_star.x += 0.4;
         sfSprite_setPosition(hunter->star->sprite_star, hunter->star->pos_star);
         sfRenderWindow_drawSprite(hunter->window,
@@ -62,7 +62,7 @@ int shout(sfVector2f mouse_pos, struct hunter_t *hunter, sfEvent event)
         sfMusic_play(hunter->fire_music);
         if (mouse_pos.x <= hunter->pos_bird.x + 134 &&
         mouse_pos.x >= hunter->pos_bird.x &&
-        mouse_pos.y <= hunter->pos_bird.y + hunter->haut &&
+        mouse_pos.y <= hunter->pos_bird.y + 110 &&
         mouse_pos.y >= hunter->pos_bird.y) {
             sfMusic_stop(hunter->explosion_music);
             sfMusic_play(hunter->explosion_music);

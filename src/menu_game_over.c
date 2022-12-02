@@ -39,6 +39,7 @@ int menu_game_over(sfVector2f mouse_pos, struct hunter_t *hunter)
         if (action_over(mouse_pos, hunter) == 42)
             return 42;
         if (action_over(mouse_pos, hunter) == 1) {
+            sfMusic_stop(hunter->vader_music);
             hunter->score = 0;
             hunter->vie = 3;
             return 1;
