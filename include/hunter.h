@@ -67,48 +67,59 @@ struct star_t {
     sfSprite *vader_sprite;
 };
 
+void bird_gd(struct hunter_t *hunter, sfEvent event, struct star_t *star);
+void bird_dg(struct hunter_t *hunter, sfEvent event, struct star_t *star);
+int ondulation(struct hunter_t *hunter);
+
+void my_putchar(char c);
 void my_putstr(char const *str);
+int my_strlen(char const *str);
+int my_getnbr(char* nb);
+
+int window_end(struct hunter_t *hunter);
+int shout(sfVector2f mouse_pos, struct hunter_t *hunter, sfEvent event);
+
 sfIntRect get_rect(int top, int left, int width, int height);
-sfVector2f get_position(float x, float y);
+sfIntRect anim_coeur(struct hunter_t *hunter);
+sfIntRect set_anim_explosion(int i, struct hunter_t *hunter);
 sfIntRect anim_dg(int i, struct hunter_t *hunter);
 sfIntRect anim_gd(int i, struct hunter_t *hunter);
-sfSprite *sprite_bird(struct hunter_t *hunter);
-sfSprite *sprite_scope1(struct hunter_t *hunter);
-int shout(sfVector2f mouse_pos, struct hunter_t *hunter, sfEvent event);
-int display_bird(struct hunter_t *hunter, sfEvent event, struct star_t *star);
-int timing(struct hunter_t *hunter,int resstart);
-int window_end(struct hunter_t *hunter);
-sfSprite *set_background(struct hunter_t *hunter);
-sfSprite *set_game_over(struct hunter_t *hunter);
-sfSprite *set_retry(struct hunter_t *hunter);
-sfSprite *set_quit(struct hunter_t *hunter);
-int menu_game_over(sfVector2f mouse_pos, struct hunter_t *hunter);
-int main_menu(struct hunter_t *hunter);
-int main_menu_button(sfVector2f mouse_pos, struct hunter_t *hunter);
+
+sfSprite *set_vader(struct hunter_t *hunter);
 sfSprite *set_play(struct hunter_t *hunter);
+sfSprite *set_quit(struct hunter_t *hunter);
+sfSprite *set_retry(struct hunter_t *hunter);
+sfSprite *set_game_over(struct hunter_t *hunter);
+sfSprite *set_quit_end(struct hunter_t *hunter);
 sfSprite *set_game_name(struct hunter_t *hunter);
+sfSprite *set_cockpit(struct hunter_t *hunter);
 sfSprite *set_coeur(struct hunter_t *hunter);
-sfIntRect anim_coeur(struct hunter_t *hunter);
+sfSprite *sprite_scope1(struct hunter_t *hunter);
 sfSprite *set_explosion(struct hunter_t *hunter);
-sfIntRect set_anim_explosion(int i, struct hunter_t *hunter);
+sfSprite *sprite_bird(struct hunter_t *hunter);
+sfSprite *set_background(struct hunter_t *hunter);
+sfSprite *set_back_game(struct hunter_t *hunter);
+
+int vader(struct hunter_t *hunter);
+int main_menu(struct hunter_t *hunter);
+int menu_game_over(sfVector2f mouse_pos, struct hunter_t *hunter);
+
 void init_struct(struct hunter_t *hunter);
 void init_struct2(struct hunter_t *hunter, struct star_t *star);
-int my_strlen(char *str);
-void txt_score(struct hunter_t *hunter);
-void my_putchar(char c);
-void display_score(struct hunter_t *hunter, sfText *nbr_score, char *buf);
-char* get_score_char(struct hunter_t *hunter);
-int display_game(struct hunter_t *hunter, sfEvent event, sfVector2f pos);
-int ondulation(struct hunter_t *hunter);
-void disp_window_end(struct hunter_t *hunter);
-void txt_score_fin(struct hunter_t *hunter);
-int my_getnbr(char* nb);
-void txt_bestscore_fin(struct hunter_t *hunter);
 void init_star(struct star_t *star);
-sfSprite *set_back_game(struct hunter_t *hunter);
-sfSprite *set_cockpit(struct hunter_t *hunter);
-int vader(struct hunter_t *hunter);
-sfSprite *set_vader(struct hunter_t *hunter);
-sfSprite *set_quit_end(struct hunter_t *hunter);
+
+sfVector2f get_position(float x, float y);
+
+int display_bird(struct hunter_t *hunter, sfEvent event, struct star_t *star);
+void disp_window_end(struct hunter_t *hunter);
+void display_score(struct hunter_t *hunter, sfText *nbr_score, char *buf);
+int display_game(struct hunter_t *hunter, sfEvent event, sfVector2f pos);
+
+char* get_score_char(struct hunter_t *hunter);
+void txt_score_fin(struct hunter_t *hunter);
+void txt_score(struct hunter_t *hunter);
+void txt_bestscore_fin(struct hunter_t *hunter);
+
+int timing(struct hunter_t *hunter, int resstart);
 
 #endif /* !HUNTER_H_ */

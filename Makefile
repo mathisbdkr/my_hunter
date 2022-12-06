@@ -10,7 +10,6 @@ SRC	=	src/anim.c	\
 	src/display_all.c	\
 	src/game_over.c	\
 	src/init_struct.c	\
-	src/main_menu_button.c	\
 	src/main_menu.c	\
 	src/main.c	\
 	src/menu_game_over.c	\
@@ -27,7 +26,7 @@ SRC	=	src/anim.c	\
 
 OBJ	=	$(SRC/.c=.o)
 
-NAME	=	my_hunter
+NAME	=	my_hunter.exe
 
 LIB	=	-lcsfml-system -lcsfml-graphics -lcsfml-audio -lcsfml-window
 

@@ -60,8 +60,7 @@ int main(int ac, char **av)
     init_star(star);
     struct hunter_t *hunter = malloc(sizeof(struct hunter_t));
     if (ac == 2 && (av[1][0] == '-' || av[1][1] == 'h')) {
-        help();
-        return (0);
+        help();return (0);
     }
     init_struct(hunter);init_struct2(hunter, star);
     sfMusic_play(hunter->menu_music);
