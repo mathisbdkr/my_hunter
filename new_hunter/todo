@@ -1,0 +1,29 @@
+menu pause avec :
+    reprendre le jeux
+    settings avec :
+        son (music et effect)
+        fps
+        vsync
+        choix vaisseux enemie && décore
+    back to menu
+    back to desktop
+
+menu game over avec :
+    best score && best level
+    rejouer
+    quiter
+    settings
+
+main menu :
+    ajouter les settings
+    ajouter le nom du jeux
+    ajouter les credits (reprendre rpg)
+
+sycro avec une clock
+
+le -h
+
+ajouter un tuto accessible depuis le main menu :
+    les regle
+    comment jouer
+    info visble en jeux
