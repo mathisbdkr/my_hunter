@@ -29,6 +29,7 @@ int launch_game(void);
 
 struct game_t *init_game(void);
 struct ship_t **init_ship(struct game_t *game);
+struct song_t *init_song(void);
 
 //  menu selector   //
 
@@ -43,17 +44,28 @@ void main_menu(struct game_t *game);
 //  game functions  //
 
 void game_main(struct game_t *game);
+void hit_ship(sfSprite *sprite, struct game_t *game, int i);
+void display_lvl(struct game_t *game);
+void display_score(struct game_t *game);
+
+//  settings functions  //
+
+void menu_pause(struct game_t *game);
+void back_to_menu(struct game_t *game);
+void display_settings(struct game_t *game);
 
 
 //  animation   //
 
 sfIntRect anim_ship(struct game_t *game, int i);
 sfIntRect anim_life(struct game_t *game);
+sfIntRect anim_explo(struct game_t *game, int index);
 
 
 //  lib //
 
 sfSprite *set_sprite(char *path, float size);
+sfMusic *set_music(char *path, float volume);
 void made_rond_rect(sfVector2f size, sfVector2f pos, sfColor color,
     sfRenderWindow *window);
 sfVector2f get_position(float x, float y);
@@ -65,5 +77,6 @@ char *my_strcat(char* src, char* dest);
 char *my_strcpy(char* dest, char* src);
 char *my_strdup(char *s1);
 int my_strlen(char const *str);
+char* my_getchar(int num);
 
 #endif /* !HUNTER_H_ */

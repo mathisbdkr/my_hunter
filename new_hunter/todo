@@ -1,3 +1,8 @@
+animation explosion : ok
+ajouter bosse chaque 10 lvl
+display scores et level : ok
+enregister level max et bestscore (fichier de conf inchangeable)
+
 menu pause avec :
     reprendre le jeux
     settings avec :
@@ -27,3 +32,5 @@ ajouter un tuto accessible depuis le main menu :
     les regle
     comment jouer
     info visble en jeux
+
+compatibiliter manette absolut

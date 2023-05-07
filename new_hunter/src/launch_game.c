@@ -22,22 +22,21 @@ static void mous_pos(struct game_t *game, sfEvent event)
 {
     sfVector2u size_win = sfRenderWindow_getSize(game->window);
 
-    game->pos_manette.x += (sfJoystick_getAxisPosition(0, JOYSTICK_LX) / 10);
-    game->pos_manette.y += (sfJoystick_getAxisPosition(0, JOYSTICK_LY) / 10);
-    if (game->pos_manette.x >= size_win.x)
-        game->pos_manette.x -= 10;
-    if (game->pos_manette.y >= size_win.y)
-        game->pos_manette.y -= 10;
-    if (game->pos_manette.x <= 0)
-        game->pos_manette.x += 10;
-    if (game->pos_manette.y <= 0)
-        game->pos_manette.y += 10;
+    game->pos_manette = game->mous_pos;
+    game->mous_pos.x += (sfJoystick_getAxisPosition(0, JOYSTICK_LX) / 10);
+    game->mous_pos.y += (sfJoystick_getAxisPosition(0, JOYSTICK_LY) / 10);
+    if (game->mous_pos.x >= size_win.x)
+        game->mous_pos.x -= 10;
+    if (game->mous_pos.y >= size_win.y)
+        game->mous_pos.y -= 10;
+    if (game->mous_pos.x <= 0)
+        game->mous_pos.x += 10;
+    if (game->mous_pos.y <= 0)
+        game->mous_pos.y += 10;
     if (event.type == sfEvtMouseMoved) {
         sfVector2i tmp = sfMouse_getPositionRenderWindow(game->window);
         game->mous_pos =
         sfRenderWindow_mapPixelToCoords(game->window, tmp, NULL);
-    } else if (event.type == sfEvtJoystickMoved) {
-        game->mous_pos = game->pos_manette;
     }
 }
 
@@ -47,6 +46,7 @@ static void loop_game(struct game_t *game)
     while (sfRenderWindow_isOpen(game->window)) {
         sfRenderWindow_pollEvent(game->window, &event);
         mous_pos(game, event);
+        game->event = event;
         sfRenderWindow_clear(game->window, sfBlack);
         menu_selector(game);
         sfRenderWindow_display(game->window);
@@ -57,6 +57,9 @@ static void loop_game(struct game_t *game)
 int launch_game(void)
 {
     struct game_t *game = init_game();
+    game->song->music = set_music(music[MUSIC_MENU], game->song->volum_music);
+    sfMusic_play(game->song->music);
+    sfMusic_setLoop(game->song->music, sfTrue);
     loop_game(game);
     return 0;
 }

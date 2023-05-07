@@ -8,6 +8,15 @@
 #include "hunter.h"
 #include "struct.h"
 
+static void play_music(struct game_t *game)
+{
+    sfMusic_stop(game->song->music);
+    sfMusic_destroy(game->song->music);
+    game->song->music = set_music(music[MUSIC_GAME], game->song->volum_music);
+    sfMusic_play(game->song->music);
+    sfMusic_setLoop(game->song->music, sfTrue);
+}
+
 static void play_quit_action(struct game_t *game)
 {
     sfFloatRect play = sfSprite_getGlobalBounds(game->sprite[PLAY]->sprite);
@@ -18,6 +27,7 @@ static void play_quit_action(struct game_t *game)
     && sfJoystick_isButtonPressed(0, KEY_A) && game->press == false)) {
         game->menu = 1;
         game->press = true;
+        play_music(game);
     }
     if ((sfFloatRect_contains(&quit, game->mous_pos.x, game->mous_pos.y)
     && sfMouse_isButtonPressed(0) && game->press == false) ||

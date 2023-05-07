@@ -48,6 +48,8 @@ struct ship_t **init_ship(struct game_t *game)
         ship[i] = malloc(sizeof(struct ship_t));
         ship[i]->ship = set_sprite(sprite_path[TIE], 0.8);
         ship[i]->anim_frame = 0;
+        ship[i]->anim_revers = -1;
+        ship[i]->explo = game->sprite[EXPLOSION]->sprite;
         set_ship(ship, i, size_win);
         ship[i]->texture = sfSprite_getTexture(ship[i]->ship);
         sfSprite_setPosition(ship[i]->ship, ship[i]->pos);

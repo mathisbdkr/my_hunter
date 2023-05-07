@@ -52,3 +52,25 @@ sfIntRect anim_life(struct game_t *game)
     }
     return rect;
 }
+
+sfIntRect anim_explo(struct game_t *game, int index)
+{
+    sfIntRect rect;
+    int i = game->ship[index]->anim_frame;
+    if (i >= 0 && i < 5) {
+        rect = get_rect(0, 0, 668 / 5, 110);
+    }
+    if (i >= 5 && i < 10) {
+        rect = get_rect(0, 668 / 5, 668 / 5, 110);
+    }
+    if (i >= 10 && i < 15) {
+        rect = get_rect(0, 668 / 5 * 2, 668 / 5, 110);
+    }
+    if (i >= 15 && i < 20) {
+        rect = get_rect(0, 668 / 5 * 3, 668 / 5, 110);
+    }
+    if (i >= 20 && i < 25) {
+        rect = get_rect(0, 668 / 5 * 4, 668 / 5, 110);
+    }
+    return rect;
+}

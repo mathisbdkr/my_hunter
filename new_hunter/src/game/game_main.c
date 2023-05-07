@@ -8,29 +8,6 @@
 #include "hunter.h"
 #include "struct.h"
 
-static void hit_ship(sfSprite *sprite, struct game_t *game, int i)
-{
-    sfFloatRect hitbox = sfSprite_getGlobalBounds(sprite);
-    if ((sfFloatRect_contains(&hitbox, game->mous_pos.x, game->mous_pos.y)
-    && sfMouse_isButtonPressed(0) && game->press == false) ||
-    (sfFloatRect_contains(&hitbox, game->pos_manette.x, game->pos_manette.y)
-    && sfJoystick_isButtonPressed(0, KEY_A) && game->press == false)) {
-        game->ship[i]->hit = true;
-        game->press = true;
-    }
-    if (!sfMouse_isButtonPressed(0) && !sfJoystick_isButtonPressed(0, KEY_A))
-        game->press = false;
-    if (game->ship[i]->left &&
-    game->ship[i]->pos.x <= -134 && !game->ship[i]->hit) {
-        game->stat->life -= 1;
-        game->ship[i]->hit = true;
-    } else if (!game->ship[i]->left &&
-    game->ship[i]->pos.x >= 2053 && !game->ship[i]->hit) {
-        game->stat->life -= 1;
-        game->ship[i]->hit = true;
-    }
-}
-
 static void round_end(struct game_t *game)
 {
     for (int i = 0; i < game->stat->level; i++) {
@@ -52,27 +29,72 @@ static void display_life(struct game_t *game)
     sfRenderWindow_drawSprite(game->window, game->sprite[HEART]->sprite, 0);
     if (game->stat->life <= 0) {
         game->menu = 0;
+        sfMusic_stop(game->song->music);
+        sfMusic_destroy(game->song->music);
+        game->song->music = set_music(music[MUSIC_MENU],
+        game->song->volum_music);
+        sfMusic_play(game->song->music);
+        sfMusic_setLoop(game->song->music, sfTrue);
         game->stat->life = 3;
         game->stat->level = 1;
     }
 }
 
+static void explosion(struct game_t *game)
+{
+    for (int i = 0; i < game->stat->level; i++) {
+        if (game->ship[i]->hit == false || game->ship[i]->anim_frame < 0)
+            continue;
+        if (game->ship[i]->anim_revers == -1) {
+            game->ship[i]->pos.y -= 110;
+            game->ship[i]->anim_revers = 0;
+            game->ship[i]->pos.x -= 668 / 5;
+            sfSprite_setScale(game->ship[i]->explo, resize[0]);
+            sfSprite_setPosition(game->ship[i]->explo, game->ship[i]->pos);
+        }
+        if (game->ship[i]->anim_frame >= 25)
+            game->ship[i]->anim_revers = 1;
+        if (game->ship[i]->anim_revers == 0)
+            game->ship[i]->anim_frame += 1;
+        if (game->ship[i]->anim_revers == 1)
+            game->ship[i]->anim_frame -= 1;
+        sfSprite_setTextureRect(game->ship[i]->explo, anim_explo(game, i));
+        sfRenderWindow_drawSprite(game->window, game->ship[i]->explo, 0);
+    }
+}
+
+static void loop_ship_move(struct game_t *game, int i)
+{
+    if (game->ship[i]->hit)
+        return;
+    if (!game->settings)
+        game->ship[i]->anim_frame += 1;
+    sfSprite_setTextureRect(game->ship[i]->ship, anim_ship(game, i));
+    if (!game->settings) {
+        hit_ship(game->ship[i]->ship, game, i);
+        if (game->ship[i]->left == true) {
+            game->ship[i]->pos.x -= game->dificulty;
+        } else {
+            game->ship[i]->pos.x += game->dificulty;
+        }
+    }
+    sfSprite_setPosition(game->ship[i]->ship, game->ship[i]->pos);
+    sfRenderWindow_drawSprite(game->window, game->ship[i]->ship, 0);
+}
+
 void game_main(struct game_t *game)
 {
     for (int i = 0; i < game->stat->level; i++) {
-        if (game->ship[i]->hit)
-            continue;
-        game->ship[i]->anim_frame += 1;
-        sfSprite_setTextureRect(game->ship[i]->ship, anim_ship(game, i));
-        hit_ship(game->ship[i]->ship, game, i);
-        if (game->ship[i]->left == true) {
-            game->ship[i]->pos.x -= 1 + ((float)game->stat->level / 4);
-        } else {
-            game->ship[i]->pos.x += 1 + ((float)game->stat->level / 4);
-        }
-        sfSprite_setPosition(game->ship[i]->ship, game->ship[i]->pos);
-        sfRenderWindow_drawSprite(game->window, game->ship[i]->ship, 0);
+        loop_ship_move(game, i);
     }
-    round_end(game);
+    if (!game->settings) {
+        explosion(game);
+        round_end(game);
+    }
     display_life(game);
+    display_lvl(game);
+    display_score(game);
+    display_settings(game);
+    if (game->settings)
+        menu_pause(game);
 }
