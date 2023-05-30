@@ -41,17 +41,25 @@ static void set_ship(struct ship_t **ship, int i, sfVector2u size_win)
 
 struct ship_t **init_ship(struct game_t *game)
 {
-    struct ship_t **ship = malloc(game->stat->level * sizeof(struct ship_t *));
+    struct ship_t **ship = malloc(game->stat->nb_ennemy * sizeof(struct ship_t *));
     srand(time(NULL));
     sfVector2u size_win = sfRenderWindow_getSize(game->window);
-    for (int i = 0; i < game->stat->level; i++) {
+    int ship_id = TIE;
+    if (game->stat->level % NB_LEVEL_FOR_BOSSE == 0)
+        ship_id = STAR;
+    if (game->stat->level == 1)
+        ship_id = TIE;
+    for (int i = 0; i < game->stat->nb_ennemy; i++) {
         ship[i] = malloc(sizeof(struct ship_t));
-        ship[i]->ship = set_sprite(sprite_path[TIE], 0.8);
+        ship[i]->boss_nb_hit = 0;
+        ship[i]->ship = set_sprite(sprite_path[ship_id], 0.8);
         ship[i]->anim_frame = 0;
         ship[i]->anim_revers = -1;
-        ship[i]->explo = game->sprite[EXPLOSION]->sprite;
+        ship[i]->explo = sfSprite_create();
+        ship[i]->explo = sfSprite_copy(game->sprite[EXPLOSION]->sprite);
         set_ship(ship, i, size_win);
-        ship[i]->texture = sfSprite_getTexture(ship[i]->ship);
+        const sfTexture *texture = sfSprite_getTexture(ship[i]->ship);
+        ship[i]->texture = sfTexture_copy(texture);
         sfSprite_setPosition(ship[i]->ship, ship[i]->pos);
         ship[i]->hit = false;
     }

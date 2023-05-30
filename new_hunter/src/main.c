@@ -7,7 +7,7 @@
 
 #include "hunter.h"
 
-int main(int argc, char **argv)
+int main(void)
 {
     return launch_game();
 }

@@ -57,19 +57,19 @@ sfIntRect anim_explo(struct game_t *game, int index)
 {
     sfIntRect rect;
     int i = game->ship[index]->anim_frame;
-    if (i >= 0 && i < 5) {
+    if (i >= 0 && i < 3) {
         rect = get_rect(0, 0, 668 / 5, 110);
     }
-    if (i >= 5 && i < 10) {
+    if (i >= 3 && i < 6) {
         rect = get_rect(0, 668 / 5, 668 / 5, 110);
     }
-    if (i >= 10 && i < 15) {
+    if (i >= 6 && i < 9) {
         rect = get_rect(0, 668 / 5 * 2, 668 / 5, 110);
     }
-    if (i >= 15 && i < 20) {
+    if (i >= 9 && i < 12) {
         rect = get_rect(0, 668 / 5 * 3, 668 / 5, 110);
     }
-    if (i >= 20 && i < 25) {
+    if (i >= 12 && i < 15) {
         rect = get_rect(0, 668 / 5 * 4, 668 / 5, 110);
     }
     return rect;

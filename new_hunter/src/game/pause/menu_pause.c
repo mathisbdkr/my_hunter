@@ -20,24 +20,6 @@ static void text_button_pause(int i, sfVector2f pos, struct game_t *game)
     sfText_destroy(txt);
 }
 
-static void click_button(struct game_t *game, sfRectangleShape *rect, int i)
-{
-    sfFloatRect bound = sfRectangleShape_getGlobalBounds(rect);
-    sfVector2f pos = game->mous_pos;
-    if (sfFloatRect_contains(&bound,pos.x, pos.y) &&
-    sfMouse_isButtonPressed(0) && i == 0)
-        game->settings = false;
-    if (sfFloatRect_contains(&bound,pos.x, pos.y) &&
-    sfMouse_isButtonPressed(0) && i == 2) {
-        back_to_menu(game);
-    }
-    if (sfFloatRect_contains(&bound,pos.x, pos.y) &&
-    sfMouse_isButtonPressed(0) && i == 3) {
-        sfRenderWindow_close(game->window);
-        game->end = 1;
-    }
-}
-
 static sfRectangleShape *hover_button(struct game_t *game,
 sfRectangleShape *rect)
 {
@@ -50,7 +32,7 @@ sfRectangleShape *rect)
     return rect;
 }
 
-void pause_background(struct game_t *game, sfVector2f size_back)
+static void pause_background(struct game_t *game, sfVector2f size_back)
 {
     sfVector2u size_win = sfRenderWindow_getSize(game->window);
     size_back.x -= 50;
@@ -77,7 +59,7 @@ void menu_pause(struct game_t *game)
         button = hover_button(game, button);
         sfRenderWindow_drawRectangleShape(game->window, button, 0);
         text_button_pause(i, posi_butt, game);
-        click_button(game, button, i);
+        pause_button(game, button, i);
         posi_butt.y += 80;
     }
 }

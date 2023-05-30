@@ -10,13 +10,17 @@
 
     #include "hunter.h"
 
-    #define NB_SPRITE 16
-    #define EASY 2
-    #define HARD 4
-    #define IMPOSSIBLE 6
+    #define NB_SPRITE 17
+    #define EASY 4
+    #define HARD 6
+    #define IMPOSSIBLE 10
+    #define NB_DIFFICULTY 3
     #define NB_EFFECT 2
     #define NB_MUSIC 3
     #define NB_TXT_PAUSE 4
+    #define NB_TXT_FPS 3
+    #define NB_SONG_TXT 4
+    #define NB_LEVEL_FOR_BOSSE 10
 
 enum{
     KEY_A,
@@ -59,6 +63,7 @@ enum{
     QUIT_END,
     RETRY,
     VADER,
+    PAUSE,
     SETTINGS,
 };
 
@@ -89,12 +94,20 @@ static char *const sprite_path[NB_SPRITE] = {
     "assets/img/menu/quite_end.png",
     "assets/img/menu/retry.png",
     "assets/img/menu/vader.jpg",
+    "assets/img/game/settings.png",
     "assets/img/game/settings.png"
 };
 
 static char *const effect[NB_EFFECT] = {
     "assets/song/effect/explosion.ogg",
     "assets/song/effect/fire.ogg",
+};
+
+static char *const volume_txt[NB_SONG_TXT] = {
+    "song :",
+    "general :",
+    "music :",
+    "effect :",
 };
 
 static char *const music[NB_MUSIC] = {
@@ -110,8 +123,31 @@ static char *const pause_txt[NB_TXT_PAUSE] = {
     "back to desktop",
 };
 
+static char *const fps_txt[NB_TXT_FPS] = {
+    "45",
+    "60",
+    "90",
+};
+
+static int const fps_select[NB_TXT_FPS] = {
+    45,
+    60,
+    90,
+};
+
+static const sfVector2f win_border[2] = {
+    {-134, 2053},
+    {-134, 2053},
+};
+
 static const sfVector2f resize[1] = {
     {1.4055636896, 1.5083798883},
+};
+
+static char *const difficulty_txt[NB_DIFFICULTY] = {
+    "easy",
+    "hard",
+    "impossible",
 };
 
 struct game_sprite_t {
@@ -122,6 +158,8 @@ struct stat_t {
     int level;
     int life;
     int score;
+    int nb_ennemy;
+    bool is_bosse;
 };
 
 struct ship_t {
@@ -131,33 +169,45 @@ struct ship_t {
     sfTexture *texture;
     int anim_frame;
     int anim_revers;
+    int boss_nb_hit;
     bool left;
     bool hit;
 };
 
-struct song_t {
+typedef struct song_s {
     sfMusic *music;
     sfMusic *effect_eplo;
     sfMusic *effect_fire;
+} song_t;
+
+typedef struct settings_s {
+    int fps_select;
+    int size_select;
+    int is_fullscreen;
     float volum_music;
     float volum_effect;
-};
+    float volum_general;
+    float sensibility;
+} settings_t;
 
 struct game_t {
     sfRenderWindow *window;
     sfVector2f mous_pos;
-    int menu;
-    bool press;
-    sfVector2f pos_manette;
-    int dificulty;
     sfEvent event;
-    bool settings;
-    int end;
+    sfVector2f pos_manette;
     sfFont *starjhol;
+    int menu;
+    int dificulty;
+    int end;
+    bool menu_difficulty;
+    bool is_press;
+    bool is_pause;
+    bool is_settings;
     struct ship_t **ship;
     struct game_sprite_t **sprite;
     struct stat_t *stat;
-    struct song_t *song;
+    song_t song;
+    settings_t settings;
 };
 
 #endif /* !STRUCT_H_ */

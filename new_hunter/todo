@@ -1,36 +1,34 @@
-animation explosion : ok
-ajouter bosse chaque 10 lvl
-display scores et level : ok
-enregister level max et bestscore (fichier de conf inchangeable)
+animation explosion : -------------------------- ok
+ajouter bosse chaque 10 lvl : ------------------ ok
+display scores et level : ---------------------- ok
+enregister level max et bestscore (fichier de conf inchangeable) {TODO}
 
 menu pause avec :
-    reprendre le jeux
+    reprendre le jeux -------------------------- ok
     settings avec :
-        son (music et effect)
-        fps
-        vsync
-        choix vaisseux enemie && décore
-    back to menu
-    back to desktop
+        son (music et effect) ------------------ ok
+        fps ------------------------------------ ok
+        vsync ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ {pas obliger}
+        choix vaisseux enemie && décore ~~~~ {a la fin}
+    back to menu ------------------------------- ok
+    back to desktop ---------------------------- ok
 
 menu game over avec :
-    best score && best level
-    rejouer
-    quiter
-    settings
+    best score && best level ~~~~~~~~~~~~~~~
+    rejouer ------------------------------------ ok
+    quiter ------------------------------------- ok
+    settings ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 main menu :
-    ajouter les settings
-    ajouter le nom du jeux
-    ajouter les credits (reprendre rpg)
+    ajouter les settings ----------------------- ok
+    ajouter le nom du jeux --------------------- ok
+    ajouter les credits (reprendre rpg) ~~~~
 
-sycro avec une clock
-
-le -h
+sycro avec une clock : ------------------------- ok
 
 ajouter un tuto accessible depuis le main menu :
-    les regle
-    comment jouer
-    info visble en jeux
+    les regle ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    comment jouer ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    info visble en jeux ~~~~~~~~~~~~~~~~~~~~
 
-compatibiliter manette absolut
+compatibiliter manette absolut ~~~~~~~~~~~~~
