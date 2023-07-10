@@ -2,9 +2,8 @@
 
 pour crée le binaire : make
 
-lancer le jeux : ./my_hunter
+lancer le jeux : ./hunter
 
-les star destroyer ne sont pas des cible mais du decore pour le old hunter
 le new_hunter est en cours de dev ...
 
 
